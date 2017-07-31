@@ -1,0 +1,65 @@
+group 'com.pratish'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext {
+        springBootVersion = '1.4.0.RELEASE'
+        mysqlConnectorVersion = '5.1.39'
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17")
+    }
+}
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+//    compile project(":basic")
+//    compile project(":web")
+    compile project(":registration")
+
+}
+
+subprojects {
+    group = 'com.pratish'
+    version = '1.0.0-RELEASE'
+}
+
+processResources {
+    filesMatching("**/application.properties") {
+        expand(project.properties)
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'spring-boot'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+        compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+//        compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
+        compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+        compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+        compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
+        compile "javax.servlet:jstl:1.2"
+    }
+}

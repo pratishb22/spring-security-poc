@@ -1,0 +1,4 @@
+rootProject.name = 'spring-security-poc'
+include 'basic'
+include 'web'
+include 'registration'
